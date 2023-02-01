@@ -1,5 +1,6 @@
 //Dependencies!
 const express = require('express');
+const mongoose = require('mongoose');
 
 //Initialize Express App
 const app = express();
@@ -8,9 +9,14 @@ const app = express();
 require('dotenv').config();
 
 const { PORT, MONGODB_URL } = process.env;
+
+mongoose.connect(MONGODB_URL);
+mongoose.connection
+.on('connected', () => console.log('Connected to MongoDB'))
+.on('error', (err) => console.log("Error with MongoDB: " + err.message))
 //Middleware
 //Mount Routes
-app.length('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send("Hello! :)")
 })
 //Port
