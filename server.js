@@ -36,6 +36,34 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.send("Hello! :)")
 })
+
+//Index
+app.get('/people', async (req, res) => {
+    try {
+        const people = await People.find({});
+        res.send(people);
+
+    } catch (error) {
+        console.log('error: ', error)
+        res.send({error: 'something went wrong please check your console'})
+    }
+})
+
+//Create
+app.post('/people'), async (req,res) =>{
+    try {
+        const person = await People.create(req.body);
+        res.send(person);
+    } catch (error) {
+        console.log('error: ',error);
+        res.send({error: "something went wrong please check your console"});
+    }   
+}
+
+//Update
+
+//Delete
+
 //Port
 app.listen(PORT, () =>{
     console.log('Backend is up and running on port 4000')
